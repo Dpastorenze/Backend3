@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { readFile, writeFile } from '../utils/fileManager.js';
 
 const router = Router();
-const PRODUCTS_FILE = './src/data/products.json';
+const productsFile = './src/data/products.json';
 
 const generateId = (items) => {
     return items.length > 0 ? String(parseInt(items[items.length - 1].id) + 1) : '1';
@@ -10,7 +10,7 @@ const generateId = (items) => {
 
 router.get('/', async (req, res) => {
     try {
-        const products = await readFile(PRODUCTS_FILE);
+        const products = await readFile(productsFile);
         const limit = parseInt(req.query.limit);
         if (limit) {
             res.json(products.slice(0, limit));
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:pid', async (req, res) => {
     try {
-        const products = await readFile(PRODUCTS_FILE);
+        const products = await readFile(productsFile);
         const product = products.find(p => p.id === req.params.pid);
         if (product) {
             res.json(product);
@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
         }
 
-        const products = await readFile(PRODUCTS_FILE);
+        const products = await readFile(productsFile);
 
         const id = generateId(products);
 
@@ -61,7 +61,7 @@ router.post('/', async (req, res) => {
         };
 
         products.push(newProduct);
-        await writeFile(PRODUCTS_FILE, products);
+        await writeFile(productsFile, products);
 
         res.status(201).json(newProduct);
     } catch (error) {
@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:pid', async (req, res) => {
     try {
-        const products = await readFile(PRODUCTS_FILE);
+        const products = await readFile(productsFile);
         const index = products.findIndex(p => p.id === req.params.pid);
         if (index === -1) {
             return res.status(404).json({ error: 'Producto no encontrado' });
@@ -83,7 +83,7 @@ router.put('/:pid', async (req, res) => {
         }
 
         products[index] = { ...products[index], ...updatedFields };
-        await writeFile(PRODUCTS_FILE, products);
+        await writeFile(productsFile, products);
 
         res.json(products[index]);
     } catch (error) {

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { readFile, writeFile } from '../utils/fileManager.js';
 
 const router = Router();
-const CARTS_FILE = './src/data/carts.json';
+const cartFile = './src/data/carts.json';
 
 const generateId = (items) => {
     return items.length > 0 ? String(parseInt(items[items.length - 1].id) + 1) : '1';
@@ -10,7 +10,7 @@ const generateId = (items) => {
 
 router.post('/', async (req, res) => {
     try {
-        const carts = await readFile(CARTS_FILE);
+        const carts = await readFile(cartFile);
 
         const id = generateId(carts);
         const newCart = {
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
         };
 
         carts.push(newCart);
-        await writeFile(CARTS_FILE, carts);
+        await writeFile(cartFile, carts);
 
         res.status(201).json(newCart);
     } catch (error) {
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:cid', async (req, res) => {
     try {
-        const carts = await readFile(CARTS_FILE);
+        const carts = await readFile(cartFile);
         const cart = carts.find(c => c.id === req.params.cid);
         if (cart) {
             res.json(cart.products);
@@ -45,7 +45,7 @@ router.post('/:cid/product/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params;
 
-        const carts = await readFile(CARTS_FILE);
+        const carts = await readFile(cartFile);
         const products = await readFile('./src/data/products.json');
 
         const cart = carts.find(c => c.id === cid);
@@ -65,7 +65,7 @@ router.post('/:cid/product/:pid', async (req, res) => {
             cart.products.push({ product: pid, quantity: 1 });
         }
 
-        await writeFile(CARTS_FILE, carts);
+        await writeFile(cartFile, carts);
         res.json(cart);
     } catch (error) {
         res.status(500).json({ error: 'Error al agregar el producto al carrito' });
