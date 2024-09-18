@@ -1,12 +1,26 @@
 import { Router } from 'express';
 import { readFile, writeFile } from '../utils/fileManager.js';
+import * as fs from "fs";
+import io from "../app.js";
 
 const router = Router();
-const productsFile = './src/data/products.json';
+const productsFile = './data/products.json';
+let products=[];
 
 const generateId = (items) => {
     return items.length > 0 ? String(parseInt(items[items.length - 1].id) + 1) : '1';
 };
+
+if (fs.existsSync("./data/products.json")) {
+    products = JSON.parse(fs.readFileSync("./data/products.json", "utf-8"));
+};
+router.get("/", (req, res) => {
+  res.render("home", { products });
+});
+
+router.get("/realtimeproducts", (req, res) => {
+  res.render("realTimeProducts", { products });
+});
 
 router.get('/', async (req, res) => {
     try {
@@ -62,7 +76,8 @@ router.post('/', async (req, res) => {
 
         products.push(newProduct);
         await writeFile(productsFile, products);
-
+        fs.writeFileSync("./data/products.json", JSON.stringify(products));
+        io.sockets.emit("realtime", { products });
         res.status(201).json(newProduct);
     } catch (error) {
         res.status(500).json({ error: 'Error al agregar el producto' });
@@ -93,15 +108,15 @@ router.put('/:pid', async (req, res) => {
 
 router.delete('/:pid', async (req, res) => {
     try {
-        const products = await readFile(PRODUCTS_FILE);
+        const products = await readFile(productsFile);
         const index = products.findIndex(p => p.id === req.params.pid);
         if (index === -1) {
             return res.status(404).json({ error: 'Producto no encontrado' });
         }
 
         const deletedProduct = products.splice(index, 1)[0];
-        await writeFile(PRODUCTS_FILE, products);
-
+        await writeFile(productsFile, products);
+        io.sockets.emit("realtime", { products });
         res.json({ message: 'Producto eliminado', product: deletedProduct });
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar el producto' });
@@ -109,4 +124,3 @@ router.delete('/:pid', async (req, res) => {
 });
 
 export default router;
-

@@ -1,12 +1,22 @@
 import { Router } from 'express';
 import { readFile, writeFile } from '../utils/fileManager.js';
+import * as fs from 'fs';
 
 const router = Router();
-const cartFile = './src/data/carts.json';
+const cartFile = './data/carts.json';
+let carts=[];
+
+if (fs.existsSync("carts.json")) {
+    carts = JSON.parse(fs.readFileSync("carts.json", "utf-8"));
+  }
 
 const generateId = (items) => {
     return items.length > 0 ? String(parseInt(items[items.length - 1].id) + 1) : '1';
 };
+
+router.get("/", (req, res) => {
+    res.send(carts);
+  });
 
 router.post('/', async (req, res) => {
     try {
@@ -73,5 +83,3 @@ router.post('/:cid/product/:pid', async (req, res) => {
 });
 
 export default router;
-
-
