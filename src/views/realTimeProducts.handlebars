@@ -1,11 +1,45 @@
-  <h1>Productos en Tiempo Real</h1>
-  <div id="productContainer">
-    {{#each products}}
-      <p>{{this.title}} - ${{this.price}}</p>
-    {{/each}}
-  </div>
-  
-<script src="/socket.io/socket.io.js"></script>
-<script src="../public/js/realTime.js"></script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos en Tiempo Real</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Productos en Tiempo Real</h1>
+    <ul id="productList"></ul>
+    <form id="productForm">
+        <input type="text" name="title" placeholder="Título" required>
+        <input type="text" name="description" placeholder="Descripción" required>
+        <input type="text" name="code" placeholder="Código" required>
+        <input type="number" name="price" placeholder="Precio" required>
+        <input type="number" name="stock" placeholder="Stock" required>
+        <input type="text" name="category" placeholder="Categoría" required>
+        <input type="text" name="thumbnails" placeholder="Thumbnails (separados por comas)">
+        <button type="submit">Agregar Producto</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const productForm = document.getElementById('productForm');
+        productForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(productForm);
+            const product = Object.fromEntries(formData.entries());
+            product.thumbnails = product.thumbnails.split(',');
+            socket.emit('newProduct', product);
+            productForm.reset();
+        });
+
+        socket.on('updateProducts', (product) => {
+            const productList = document.getElementById('productList');
+            const li = document.createElement('li');
+            li.textContent = `${product.title} - $${product.price}-${product.category}`;
+            productList.appendChild(li);
+        });
+    </script>
+</body>
+</html>
 
 

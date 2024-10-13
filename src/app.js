@@ -1,50 +1,50 @@
 import express from 'express';
-import { Server } from 'socket.io';
-import productsRouter from './routes/products.js';
-import cartsRouter from './routes/carts.js';
-import * as fs from "fs";
+import http from 'http';
+import { Server as SocketIO } from 'socket.io';
+import connectDB from './config/db.js';
+import productsRouter from './routes/productsRouter.js';
+import cartsRouter from './routes/cartsRouter.js';
 import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
+import viewsRouters from "./routes/viewsRouter.js"
+import path from 'path';
 
 const app = express();
+const server = http.createServer(app);
+const io = new SocketIO(server);
 
-app.engine("handlebars", handlebars.engine());
-app.set("views", __dirname + "/views");
-app.set("view engine", "handlebars");
-
-
-app.use(express.urlencoded({ extended: true }));
+connectDB();
 
 app.use(express.json());
-
-app.use(express.static(__dirname + "/public"));
+app.use(express.urlencoded({ extended: true }));
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+app.use(express.static(path.join(__dirname, 'public')));
 
-let products = [];
+app.engine("handlebars", handlebars.engine({
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    }
+}));
+app.set("views", __dirname + "/views");
+app.set("view engine", "handlebars");
+app.use('/', viewsRouters);
 
-if (fs.existsSync("./data/products.json")) {
-  products = JSON.parse(fs.readFileSync("./data/products.json", "utf-8"));
-};
-
-const httpServer=app.listen(8080, () => {
-  console.log(`Server ON`);
-});
-
-const io = new Server(httpServer);
 
 io.on('connection', (socket) => {
-  console.log('Cliente conectado');
-  io.sockets.emit("realtime", { products });
+    console.log('Un cliente se ha conectado');
 
-  socket.on('newProduct', (data) => {
-    io.emit('updateProducts', data);
-  });
+    socket.on('newProduct', async (product) => {
 
-  socket.on('deleteProduct', (data) => {
-    io.emit('updateProducts', data);
+        const newProduct = new Product(product);
+        await newProduct.save();
+        
+        io.emit('updateProducts', newProduct);
     });
-
 });
 
-export default io ; 
+const PORT = 8080;
+server.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});
