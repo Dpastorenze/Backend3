@@ -6,7 +6,6 @@ import { passportCall } from '../middlewares/passportCall.js';
 
 const router = express.Router();
 
-
 router.post('/register', async (req, res) => {
     const { first_name, last_name, email, age, password } = req.body;
 
