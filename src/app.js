@@ -8,6 +8,9 @@ import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
 import viewsRouters from "./routes/viewsRouter.js"
 import path from 'path';
+import cookieParser from 'cookie-parser';
+import passport from './config/passport.js';
+import sessionRoutes from './routes/sessions.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(passport.initialize());
+
 
 app.engine("handlebars", handlebars.engine({
     runtimeOptions: {
@@ -31,6 +37,13 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 app.use('/', viewsRouters);
 
+app.use('/api/sessions', sessionRoutes);
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+app.get('/register', (req, res) => {
+    res.render('register');
+});
 
 io.on('connection', (socket) => {
     console.log('Un cliente se ha conectado');
