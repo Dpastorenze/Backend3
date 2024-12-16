@@ -11,6 +11,11 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import passport from './config/passport.js';
 import sessionRoutes from './routes/sessions.js';
+import dotenv from 'dotenv';
+import userRouter from './routes/userRouter.js'
+
+
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
@@ -20,12 +25,9 @@ connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/products', productsRouter);
-app.use('/api/carts', cartsRouter);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(passport.initialize());
-
 
 app.engine("handlebars", handlebars.engine({
     runtimeOptions: {
@@ -38,12 +40,12 @@ app.set("view engine", "handlebars");
 app.use('/', viewsRouters);
 
 app.use('/api/sessions', sessionRoutes);
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-app.get('/register', (req, res) => {
-    res.render('register');
-});
+
+app.use('/api/users', userRouter);
+app.use('/api/carts',cartsRouter);
+app.use('/api/products', productsRouter);
+
+
 
 io.on('connection', (socket) => {
     console.log('Un cliente se ha conectado');
@@ -57,7 +59,7 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = 8080;
-server.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+    console.log(`Servidor escuchando en http://localhost:${port}`);
 });

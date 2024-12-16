@@ -10,3 +10,4 @@ export const passportCall = (strategy) => {
         })(req, res, next);
     };
 };
+

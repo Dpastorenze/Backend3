@@ -34,4 +34,16 @@ router.get('/realtimeproducts', async (req, res) => {
     }
 });
 
+router.get('/login', (req, res) => {
+    res.render('login');
+});
+router.get('/register', (req, res) => {
+    res.render('register');
+});
+
+router.get('/products', async (req, res) => {
+    const products = await Product.find();
+    res.render('products', { products });
+});
+
 export default router;

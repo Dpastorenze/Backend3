@@ -1,0 +1,52 @@
+GET http://localhost:8080/
+
+###
+
+GET http://localhost:8080/api/sessions
+###
+GET http://localhost:8080/login
+
+###
+GET http://localhost:8080/register
+
+### pruebas registrar usuario
+
+POST http://localhost:8080/api/sessions/register
+Content-Type: application/json
+
+{ 
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "email": "juan.perez@example.com",
+    "age": 30,
+    "password": "password123",
+    "role": "admin"
+}
+### // inicio sesion
+
+POST http://localhost:8080/api/sessions/login 
+Content-Type: application/json
+{
+    "email": "juan.perez@example.com",
+    "password": "password123"
+    
+}
+
+### // obtener usuario actual
+
+GET  http://localhost:8080/sessions/current
+Content-Type: application/json
+### // ver productos
+
+GET http://localhost:8080/api/products
+Content-Type: application/json
+### // finalizar compra 
+POST http://localhost:8080/api/carts/:cid/purchase
+Content-Type: application/json
+### // ver carrito
+GET http://localhost:8080/api/carts/:cid
+Content-Type: application/json
+### // agregar producto al carrito
+POST http://localhost:8080/api/carts/:cid/products/:pid
+Content-Type: application/json      
+### // eliminar producto del carrito
