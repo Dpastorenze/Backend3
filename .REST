@@ -11,7 +11,7 @@ GET http://localhost:8080/register
 
 ### pruebas registrar usuario
 
-POST http://localhost:8080/api/sessions/register
+POST http://localhost:8080/session/register
 Content-Type: application/json
 
 { 
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 ### // inicio sesion
 
-POST http://localhost:8080/api/sessions/login 
+POST http://localhost:8080/session/login
 Content-Type: application/json
 {
     "email": "juan.perez@example.com",
@@ -32,10 +32,19 @@ Content-Type: application/json
     
 }
 
+### Obtener todos los usuarios
+GET http://localhost:8080/api/users
+
+
 ### // obtener usuario actual
 
-GET  http://localhost:8080/sessions/current
-Content-Type: application/json
+# Obtener el usuario actual
+GET http://localhost:8080/api/users/currentUser
+Cookie: 
+
+###
+GET  http://localhost:8080/current
+Cookie: 
 ### // ver productos
 
 GET http://localhost:8080/api/products
@@ -49,4 +58,161 @@ Content-Type: application/json
 ### // agregar producto al carrito
 POST http://localhost:8080/api/carts/:cid/products/:pid
 Content-Type: application/json      
-### // eliminar producto del carrito
+###
+POST http://localhost:8080/api/carts
+
+###
+GET http://localhost:8080/api/carts/&lt;cartId>
+
+###
+POST http://localhost:8080/api/carts/add
+
+{
+      "cartId": "<cartId>",
+      "productId": "<productId>",
+      "quantity": 1
+  }
+
+### Registro de Usuario
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "john.doe@example.com",
+  "age": 30,
+  "password": "password123"
+}
+
+### Login de Usuario
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+### Logout de Usuario
+POST http://localhost:8080/logout
+
+
+//prodcuts pruebas
+
+### Obtener todos los productos
+GET http://localhost:8080/api/products
+
+### Obtener un producto por ID
+GET http://localhost:8080/api/products/ID_DEL_PRODUCTO
+
+### Crear un nuevo producto
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "Nuevo Producto",
+    "description": "Descripción del nuevo producto",
+    "code": "NP123",
+    "price": 100,
+    "stock": 50,
+    "category": "Categoría",
+    "thumbnails": "URL_DE_LA_IMAGEN"
+}
+
+### Actualizar un producto
+PUT http://localhost:8080/api/products/ID_DEL_PRODUCTO
+Content-Type: application/json
+
+{
+    "title": "Producto Actualizado",
+    "description": "Descripción actualizada del producto",
+    "code": "NP123",
+    "price": 120,
+    "stock": 60,
+    "category": "Categoría Actualizada",
+    "thumbnails": "URL_DE_LA_IMAGEN_ACTUALIZADA"
+}
+
+### Eliminar un producto
+DELETE http://localhost:8080/api/products/ID_DEL_PRODUCTO
+
+
+//carts pruebas
+### Obtener los productos en el carrito
+GET http://localhost:8080/api/carts/unique
+
+### Obtener el carrito del usuario logueado
+GET http://localhost:8080/api/carts
+Cookie:
+
+
+### Crear un nuevo carrito
+POST http://localhost:8080/api/carts
+Content-Type: application/json
+
+### Obtener un carrito por ID
+GET http://localhost:8080/api/carts/unique
+
+### Añadir un producto al carrito//falla con rest , en postman funciona
+POST http://localhost:8080/api/carts/unique
+Content-Type: application/json
+{
+    "productId": "6709538dd6a6c1b1da8d7281",
+    "quantity": 2
+}
+### Actualizar productos del carrito
+PUT http://localhost:8080/api/carts/ID_DEL_CARRITO
+Content-Type: application/json
+
+{
+    "products": [
+        { "product": "ID_DEL_PRODUCTO", "quantity": 2 },
+        { "product": "OTRO_ID_DEL_PRODUCTO", "quantity": 3 }
+    ]
+}
+
+### Eliminar un producto del carrito
+DELETE http://localhost:8080/api/carts/unique/products/676b1053bf4ce6b6b5ee40a8
+Content-Type: application/json 
+
+### Eliminar un carrito
+DELETE http://localhost:8080/api/carts/ID_DEL_CARRITO
+
+//pruebas sessions
+### Registro de nuevo usuario
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{ 
+    "first_name": "tom",
+    "last_name": "saraza",
+    "email": "tom@example.com",
+    "age": 20,
+    "password": "password123",
+    "role": "user"
+}
+
+### Login de usuario
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "email": "tom@example.com",
+    "password": "password123"
+    
+}
+
+### // obtener usuario actual
+
+# Obtener el usuario actual
+GET http://localhost:8080/api/users/currentUser
+Cookie: 
+
+###
+GET  http://localhost:8080/current
+Cookie: 
+
+### Obtener el usuario actual (autenticado)
+GET http://localhost:8080/api/sessions/current
+Authorization: Bearer YOUR_JWT_TOKEN

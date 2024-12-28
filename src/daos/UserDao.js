@@ -1,19 +1,18 @@
 import User from '../models/User.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import Cart from '../models/cartModel.js';
+import bcrypt from 'bcrypt';
 
-class UserService {
+class UserDao {
     async getAllUsers() {
         return await User.find();
     }
-    
+
     async getUser(id) {
         return await User.findById(id).populate('cart');
     }
 
     async createUser(userData) {
-        const hashedPassword = bcrypt.hashSync(userData.password, 10);
+        const hashedPassword = await bcrypt.hash(userData.password, 10);
         const newCart = new Cart();
         await newCart.save();
 
@@ -23,7 +22,7 @@ class UserService {
 
     async updateUser(id, userData) {
         if (userData.password) {
-            userData.password = bcrypt.hashSync(userData.password, 10);
+            userData.password = bcrypt.hash(userData.password, 10);
         }
         return await User.findByIdAndUpdate(id, userData, { new: true });
     }
@@ -31,18 +30,6 @@ class UserService {
     async deleteUser(id) {
         return await User.findByIdAndDelete(id);
     }
-
-    async getUserById(id) {
-        return await User.findById(id).populate('cart');
-    }
-
-    async getUserByEmail(email) {
-            return await User.findOne({ email });
-            }
 }
 
-
-
-export default new UserService();
-
-
+export default new UserDao();

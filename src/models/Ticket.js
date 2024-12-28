@@ -1,17 +1,20 @@
-// models/Ticket.js
 import mongoose from 'mongoose';
 
-const ticketSchema = new mongoose.Schema({
-    code: { type: String, unique: true },
-    purchase_datetime: { type: Date, default: Date.now },
-    amount: { type: Number, required: true },
-    purchaser: { type: String, required: true }
-});
+const Schema = mongoose.Schema;
 
-ticketSchema.pre('save', function(next) {
-    this.code = `TICKET-${Math.floor(Math.random() * 1000000)}`; // Generar código único
-    next();
+const ticketSchema = new Schema({
+    code: { type: String, required: true, unique: true }, // Campo `code` único
+    userEmail: { type: String, required: true },
+    products: [
+        {
+            product: { type: Schema.Types.ObjectId, ref: 'Product' },
+            quantity: { type: Number, required: true }
+        }
+    ],
+    total: { type: Number, required: true },
+    date: { type: Date, default: Date.now }
 });
 
 const Ticket = mongoose.model('Ticket', ticketSchema);
+
 export default Ticket;

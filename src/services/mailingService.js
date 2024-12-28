@@ -1,6 +1,7 @@
-// services/mailingService.js
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -14,13 +15,21 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-export const sendPurchaseEmail = (purchaserEmail, ticket) => {
+const sendMail = async (to, subject, text, html) => {
     const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: purchaserEmail,
-        subject: 'Confirmación de Compra',
-        text: `Gracias por tu compra! Aquí están los detalles de tu ticket:\n\nCódigo: ${ticket.code}\nMonto: $${ticket.amount}\nFecha: ${ticket.purchase_datetime}`
+        from:'prueba@example.com',
+        to,
+        subject,
+        text,
+        html
     };
 
-    return transporter.sendMail(mailOptions);
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Correo enviado con éxito');
+    } catch (error) {
+        console.error('Error al enviar el correo:', error);
+    }
 };
+
+export default sendMail;

@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Productos en Tiempo Real</h1>
+    <a href="/products">Volver a products</a></p>
     <ul id="productList"></ul>
     <form id="productForm">
         <input type="text" name="title" placeholder="Título" required>
@@ -22,12 +23,16 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
+        socket.on('conect',()=>{
+            console.log('cliente conectado');
+        })
         const productForm = document.getElementById('productForm');
         productForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const formData = new FormData(productForm);
             const product = Object.fromEntries(formData.entries());
-            product.thumbnails = product.thumbnails.split(',');
+            //product.thumbnails = product.thumbnails.split(',');
+            product.thumbnails = product.thumbnails ? product.thumbnails.split(',') : []; // Asegurarse de que thumbnails sea un array válido
             socket.emit('newProduct', product);
             productForm.reset();
         });

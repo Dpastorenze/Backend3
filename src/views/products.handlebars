@@ -60,23 +60,31 @@
 <body>
     <h1>Productos</h1>
     <a href="/login" class="login-button">Iniciar Sesión</a>
-    <a href="/api/carts" class="cart-button">Ver Carrito</a>
+    <div class="view-cart"> <a href="/api/carts/view">Ver Carrito</a></div>
+ 
+    {{#if isAdmin}}
+    <a href="/realTimeProducts" class="button">Ver Productos en Tiempo Real</a>
+    {{/if}}
+ 
     <div class="product-list">
         {{#each products}}
             <div class="product-item">
                 <img src="{{this.image}}" alt="{{this.name}}" class="product-image"> <!-- Asegúrate de que cada producto tenga un campo 'image' -->
-                <strong>{{this.name}}</strong>
+                <strong>{{this.title}}</strong>
                 <p>Precio: ${{this.price}}</p>
                 <p>Stock: {{this.stock}}</p>
-                <form action="/api/carts/{{this._id}}/purchase" method="POST">
-                    <input type="number" name="quantity" min="1" max="{{this.stock}}" placeholder="Cantidad" required>
-                    <button type="submit">Agregar al Carrito</button>
+                <form action="/api/carts/unique" method="POST">
+                    <input type="hidden" name="productId" value="{{this._id}}"> <label for="quantity">Cantidad:</label> <input type="number"
+                        name="quantity" id="quantity" value="1" min="1"> <button type="submit">Añadir al Carrito</button>
                 </form>
             </div>
         {{/each}}
     </div>
-        <form action="/api/sessions/logout" method="POST">
+        <form action="/logout" method="POST">
         <button type="submit">Cerrar Sesión</button>
     </form>
+    
 </body>
 </html>
+
+

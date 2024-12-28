@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import Product from '../models/productModel.js';
 
-
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -18,7 +17,6 @@ router.get('/', async (req, res) => {
         res.status(500).send('Error al obtener productos');
     }
 });
-
 
 router.get('/realtimeproducts', async (req, res) => {
     try {

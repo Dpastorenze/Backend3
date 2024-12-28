@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket de Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .ticket {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .ticket h1 {
+            text-align: center;
+            color: #333;
+        }
+        .product-list {
+            margin: 20px 0;
+        }
+        .product-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .product-item:last-child {
+            border-bottom: none;
+        }
+        .product-item strong {
+            display: block;
+        }
+        .total {
+            text-align: right;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <h1>Ticket de Compra</h1>
+        <div class="product-list">
+            {{#each cart.products}}
+                <div class="product-item">
+                    <strong>{{this.product.title}}</strong>
+                    <p>Precio: ${{this.product.price}}</p>
+                    <p>Cantidad: {{this.quantity}}</p>
+                </div>
+            {{/each}}
+        </div>
+        <div class="total">
+            <p>Total: ${{total}}</p>
+        </div>
+        <div class="button-container">
+            <button id="send-email-button" class="button">Enviar Correo</button>
+            <a href="/products" class="button">Volver a Productos</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('send-email-button').addEventListener('click', function() {
+            fetch('/api/carts/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cart: {{json cart}}, total: {{total}} })
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Correo enviado con éxito');
+                    } else {
+                        alert('Error al enviar el correo');
+                    }
+                });
+        });
+    </script>
+</body>
+</html>

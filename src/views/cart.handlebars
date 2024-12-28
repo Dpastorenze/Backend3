@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .cart-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cart-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .total {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Carrito de Compras</h1>
+     <a href="/products" class="button">Volver a Productos</a>
+    <div class="cart-list">
+        {{#each cart.products}}
+            <div class="cart-item">
+                <strong>{{this.product.title}}</strong>
+                <p>Precio: ${{this.product.price}}</p>
+                <p>Cantidad: {{this.quantity}}</p>
+                <input type="number" class="delete-quantity" min="1" max="{{this.quantity}}" value="1">
+                <button class="delete-button" data-product-id="{{this.product._id}}">Eliminar del Carrito</button>
+
+            </div>
+        {{/each}}
+    </div>
+    <div class="total">
+        <p>Total: ${{total}}</p>
+    </div>
+   
+    <form action="/api/carts/checkout" method="post">
+        <button type="submit">Finalizar Compra</button>
+    </form>
+    <script> document.querySelectorAll('.delete-button').forEach(button => { 
+        button.addEventListener('click', function (event) {
+             const productId = this.getAttribute('data-product-id');
+              const quantity = this.previousElementSibling.value;
+              fetch('/api/carts/unique', {
+                 method: 'DELETE',
+                  headers: 
+                  { 
+                    'Content-Type': 'application/json' 
+                    },
+                     body: JSON.stringify({ productId,quantity })
+                      })
+                      .then(response => response.json())
+                      .then(data =>{
+                         if (data.status === 'success') {
+                             location.reload();
+                              } else {
+                                 console.error(data.message);
+                                  } 
+                                  });
+                                   });
+                                    });
+                                     </script>
+
+</body>
+</html>
