@@ -1,42 +1,42 @@
-import ProductService from '../services/productService.js';
-import ProductDTO from '../dtos/productDTO.js';
+import productService from '../services/productService.js';
+import productDTO from '../dtos/productDto.js';
 
 
 const getProducts = async (req, res) => {
     try{
         const cartId=req.session.cartId;
-        const products=await ProductService.getProducts();
+        const products=await productService.getProducts();
         const user=req.session.user;
 
         if(!cartId){
-            return res.status(400).send('no se encontro el cartID')
+            return res.status(400).send('cartID was not found')
         }
 
-        res.render('products',{products,cartId});
+        res.render('products',{products,cartId,user});
     }catch(error){
         res.status(500).json({message:error.message});
     }
     }
 
 const getProductById = async (req, res) => {
-    const product = await ProductService.getProductById(req.params.pid);
+    const product = await productService.getProductById(req.params.pid);
     if (!product) return res.status(404).json({ status: 'error', message: 'Producto no encontrado' });
-    res.json({ status: 'success', payload: new ProductDTO(product) });
+    res.json({ status: 'success', payload: new productDTO(product) });
 };
 
 const createProduct = async (req, res) => {
-    const newProduct = await ProductService.createProduct(req.body);
-    res.status(201).json({ status: 'success', payload: new ProductDTO(newProduct) });
+    const newProduct = await productService.createProduct(req.body);
+    res.status(201).json({ status: 'success', payload: new productDTO(newProduct) });
 };
 
 const updateProduct = async (req, res) => {
-    const updatedProduct = await ProductService.updateProduct(req.params.pid, req.body);
+    const updatedProduct = await productService.updateProduct(req.params.pid, req.body);
     if (!updatedProduct) return res.status(404).json({ status: 'error', message: 'Producto no encontrado' });
-    res.json({ status: 'success', payload: new ProductDTO(updatedProduct) });
+    res.json({ status: 'success', payload: new productDTO(updatedProduct) });
 };
 
 const deleteProduct = async (req, res) => {
-    const deletedProduct = await ProductService.deleteProduct(req.params.pid);
+    const deletedProduct = await productService.deleteProduct(req.params.pid);
     if (!deletedProduct) return res.status(404).json({ status: 'error', message: 'Producto no encontrado' });
     res.json({ status: 'success', message: 'Producto eliminado' });
 };

@@ -8,7 +8,7 @@ class SessionController {
 
         const userExists = await User.findOne({ email });
         if (userExists) {
-            return res.status(400).json({ message: 'El usuario ya existe' });
+            return res.status(400).json({ message: 'the user already exists' });
         }
 
         const hashedPassword = bcrypt.hashSync(password, 10);
@@ -20,14 +20,14 @@ class SessionController {
         });
 
         await newUser.save();
-        res.status(201).json({ message: 'Usuario registrado exitosamente' });
+        res.status(201).json({ message: 'successfully registered user' });
     }
 
     login = async (req, res) => {
         const { email, password } = req.body;
         console.log('Email recibido:', email);
         const user = await User.findOne({ email })
-        if (!user){ console.log('Usuario no encontrado');
+        if (!user){ console.log('User not found');
             return null;
         } 
         console.log(`Contraseña proporcionada: ${password}`);

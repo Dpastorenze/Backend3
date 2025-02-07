@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import CartService from "../services/CartService.js";
+import CartService from "../services/cartService.js";
 import sendMail from '../services/mailingService.js';
 import Ticket from '../models/Ticket.js';
 
@@ -83,7 +83,7 @@ class CartController {
             if (!cart) return res.status(404).json({ status: 'error', message: 'Cart not found' });
             res.status(200).json({
                 status: 'success',
-                message: 'Product added to cart'
+                message: 'Product add to cart'
             });
         } catch (error) {
             console.log(error);
@@ -96,7 +96,7 @@ class CartController {
             console.log('el produ es',productId);
             const cart= await CartService.deleteItemFrom(productId,quantity);
             if (!cart){
-                throw new Error('carrito no encontrado')
+                throw new Error('cart not found')
             } 
 
             res.status(200).json({
@@ -123,7 +123,7 @@ static checkoutCart = async (req, res) => {
     try {
         const cart = await CartService.getBy();
         if (!cart) {
-            throw new Error('Carrito no encontrado');
+            throw new Error('Cart not found');
         }
 
         const total = cart.products.reduce((acc, item) => acc + item.product.price * item.quantity, 0);

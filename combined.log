@@ -1,0 +1,38 @@
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-04 19:53:53"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 19:53:53"}
+{"level":"info","message":"Variables de entorno cargadas: {\"PORT\":\"8080\",\"MONGO_LINK\":\"mongodb://localhost:27017/production\",\"JWT_PRIVATE_KEY\":\"thesecret\"}","service":"your-service-name","timestamp":"2025-02-04 19:53:53"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-04 19:57:13"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 19:57:13"}
+{"level":"info","message":"Variables de entorno cargadas: {\"PORT\":\"9000\",\"MONGO_LINK\":\"mongodb://localhost:27017/production\",\"JWT_PRIVATE_KEY\":\"thesecret\"}","service":"your-service-name","timestamp":"2025-02-04 19:57:13"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev","service":"your-service-name","timestamp":"2025-02-04 20:01:09"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:01:09"}
+{"level":"info","message":"Variables de entorno cargadas: {\"PORT\":\"8080\",\"MONGO_LINK\":\"mongodb://localhost:27017/development\",\"JWT_PRIVATE_KEY\":\"thesecret\"}","service":"your-service-name","timestamp":"2025-02-04 20:01:09"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-04 20:02:27"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:02:27"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-04 20:02:27"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:02:27"}
+{"level":"info","message":"Variables de entorno cargadas: {\"PORT\":\"9000\",\"MONGO_LINK\":\"mongodb://localhost:27017/production\",\"JWT_PRIVATE_KEY\":\"thesecret\"}","service":"your-service-name","timestamp":"2025-02-04 20:02:27"}
+{"level":"info","message":"Aplicación iniciada en el puerto 9000","service":"your-service-name","timestamp":"2025-02-04 20:02:27"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-04 20:04:19"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:04:19"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-04 20:04:19"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:04:19"}
+{"level":"info","message":"Aplicación iniciada en el puerto 9000","service":"your-service-name","timestamp":"2025-02-04 20:04:19"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-04 20:06:15"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:06:15"}
+{"level":"info","message":"Aplicación iniciada en el puerto 9000","service":"your-service-name","timestamp":"2025-02-04 20:06:15"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev","service":"your-service-name","timestamp":"2025-02-04 20:07:39"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:07:39"}
+{"level":"info","message":"Aplicación iniciada en el puerto 8080","service":"your-service-name","timestamp":"2025-02-04 20:07:39"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev","service":"your-service-name","timestamp":"2025-02-04 20:09:02"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev cargado correctamente.","service":"your-service-name","timestamp":"2025-02-04 20:09:02"}
+{"level":"info","message":"Aplicación iniciada en el puerto 8080","service":"your-service-name","timestamp":"2025-02-04 20:09:02"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production","service":"your-service-name","timestamp":"2025-02-05 23:49:13"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.production cargado correctamente.","service":"your-service-name","timestamp":"2025-02-05 23:49:13"}
+{"level":"info","message":"Aplicación iniciada en el puerto 9000","service":"your-service-name","timestamp":"2025-02-05 23:49:13"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev","service":"proyectback","timestamp":"2025-02-06 20:59:23"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev cargado correctamente.","service":"proyectback","timestamp":"2025-02-06 20:59:23"}
+{"level":"info","message":"Aplicación iniciada en el puerto 8080","service":"proyectback","timestamp":"2025-02-06 20:59:23"}
+{"level":"info","message":"Intentando cargar el archivo de entorno: C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev","service":"proyectback","timestamp":"2025-02-06 21:19:04"}
+{"level":"info","message":"Archivo de entorno C:\\Users\\Usuario\\Desktop\\Backend mod3\\Proyecto\\.env.dev cargado correctamente.","service":"proyectback","timestamp":"2025-02-06 21:19:04"}
+{"level":"info","message":"Aplicación iniciada en el puerto 8080","service":"proyectback","timestamp":"2025-02-06 21:19:04"}

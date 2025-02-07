@@ -1,0 +1,26 @@
+config:
+   plugging:
+    metrics-by-endpoint: {}
+  target: 'https://localhost:8080/api'  # URL base de tu API
+  phases:
+    - duration: 10  # Duración de la prueba en segundos
+      arrivalRate: 100  # Número de solicitudes por segundo
+scenarios:
+  - name:read all products & read one product
+  - flow:
+      -log:read all products
+      - get:
+          url: '/products'  # Ruta específica de tu API que deseas probar
+          -log:read one product
+          - get:
+            url: '/products/1'  # Ruta específica de tu API que     
+  - name:login & read products
+  - flow:
+      - log:login
+      - post:
+          url: '/login'  # Ruta específica de tu API que deseas probar
+          json:
+            email:prueba1@test.com
+            password:test1234
+      - get:
+          url: '/products'               

@@ -203,16 +203,5 @@ Content-Type: application/json
     
 }
 
-### // obtener usuario actual
 
-# Obtener el usuario actual
-GET http://localhost:8080/api/users/currentUser
-Cookie: 
 
-###
-GET  http://localhost:8080/current
-Cookie: 
-
-### Obtener el usuario actual (autenticado)
-GET http://localhost:8080/api/sessions/current
-Authorization: Bearer YOUR_JWT_TOKEN

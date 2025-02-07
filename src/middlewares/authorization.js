@@ -1,7 +1,7 @@
 //middleware para autorizaciones en http
 export const authorization = roles => {
     return async (req, res, next) => {
-        if (!req.user) return res.status(401).send({ error: 'Unauthorized' });
+        if (!req.user) return res.status(401).send({ error: 'sin autorizacion' });
         if (!roles.includes(req.user.role)) return res.status(403).send({ error: 'Not permissions' });
         next();
     };
@@ -19,13 +19,13 @@ export const socketAuthorization = roles => {
 };
 
 
-const isAdmin = (req, res, next) => {
-    if (req.session.user && req.session.user.role === 'admin') {
-        res.locals.isAdmin = true; 
-    } else {
-        res.locals.isAdmin = false; 
-    }
-    next();
-};
+// const isAdmin = (req, res, next) => {
+//     if (req.session.user && req.session.user.role === 'admin') {
+//         res.locals.isAdmin = true; 
+//     } else {
+//         res.locals.isAdmin = false; 
+//     }
+//     next();
+// };
 
-export default isAdmin;
+// export default isAdmin;

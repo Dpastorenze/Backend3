@@ -1,2 +1,11 @@
 /node_modules
 .env
+.env.dev
+.env.production
+.REST
+dockerfile
+/tests
+*.log
+/yarm-app
+
+

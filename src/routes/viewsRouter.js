@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         res.render('home', { products }); 
     } catch (error) {
         console.error('Error al obtener productos:', error);
-        res.status(500).send('Error al obtener productos');
+        res.status(500).send('error when obtaining the product');
     }
 });
 
@@ -28,7 +28,7 @@ router.get('/realtimeproducts', async (req, res) => {
         res.render('realTimeProducts', { products });
     } catch (error) {
         console.error('Error al obtener productos:', error);
-        res.status(500).send('Error al obtener productos');
+        res.status(500).send('error when obtaining the product');
     }
 });
 

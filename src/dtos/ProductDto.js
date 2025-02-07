@@ -1,4 +1,4 @@
-class ProductDTO {
+class productDTO {
     constructor(product) {
         this.id = product._id;
         this.title = product.title;
@@ -11,4 +11,4 @@ class ProductDTO {
     }
 }
 
-export default ProductDTO;
+export default productDTO;

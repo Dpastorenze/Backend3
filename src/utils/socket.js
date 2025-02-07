@@ -24,7 +24,7 @@ const initializeSocket = (server) => {
             io.emit('updateProducts', product);
 
         }catch(error){
-            console.error('error al guardar el producto:',error);
+            console.error('error to add product:',error);
         }
         });
     });

@@ -17,12 +17,17 @@ import session from 'express-session';
 import registerHelpers from './utils/helpers.js';
 import initializeSocket from './utils/socket.js';
 import userMiddleware from './middlewares/userMiddleware.js';
+import mocksRouter from './routes/mocksRouter.js'
+import env from './utils/envLoader.js';
+import logger from './utils/logger.js';
+import errorHandler from './middlewares/errorHandler.js';
+
+
 
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-
 
 connectDB();
 
@@ -42,6 +47,7 @@ app.use(session({
 app.use(userMiddleware);
 
 registerHelpers();
+
 app.engine("handlebars", handlebars.engine({
     defaultLayout:'main',
     runtimeOptions: {
@@ -54,13 +60,22 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 app.use('/', viewsRouters);
 
+app.use('/api/mocks',mocksRouter);
+// app.use(compression({ brotli: { enabled: true, zlib: {} } }));//compresor 
+
 app.use('/', sessionRoutes);
 
 app.use('/api/users', userRouter);
 app.use('/api/carts',cartsRouter);
 app.use('/api/products', productsRouter);
 
-const io = initializeSocket(server);
+app.use(errorHandler);
+
+initializeSocket(server);
+
+
+logger.info(`Aplicación iniciada en el puerto ${process.env.PORT}`);
+logger.http('Servidor HTTP iniciado');
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {

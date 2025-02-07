@@ -27,7 +27,7 @@ class CartDao {
         try{
         const cart = await Cart.findById(id).populate('products.product');
         if (!cart) {
-            throw new Error('carrito no encontrado')
+            throw new Error('cart not found')
         };
         cart.products.push(product);
         await cart.save();
@@ -46,7 +46,7 @@ class CartDao {
         const cart = await Cart.findById(id).populate('products.product');
         console.log('carrito recu',cart);
         if (!cart) {
-            throw new Error('carrito no encontrado')
+            throw new Error('cart not found')
         };
         
         cart.products = cart.products.map(item =>{
