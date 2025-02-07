@@ -13,8 +13,8 @@ Este proyecto demuestra cómo generar dinámicamente usuarios y productos para s
 1. Clona el repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/proyecto-mocking-logger.git
-   cd proyecto-mocking-logger
+   git clone https://github.com/Dpastorenze/Backend3.git
+   cd Proyecto/src
 
 2. Instalacion dependencias  
 npm install

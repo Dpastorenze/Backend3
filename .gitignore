@@ -6,6 +6,6 @@
 dockerfile
 /tests
 *.log
-/yarm-app
+/yarn-app
 
 
