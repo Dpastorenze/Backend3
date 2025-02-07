@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
     try {
-        await mongoose.connect("Base de datos mongo",process.env.MONGO_LINK, {
+        await mongoose.connect('mongodb+srv://dep2024:123456prueba@proyectmongo.fxmzi.mongodb.net/', {
 
         });
         console.log('Conectado a MongoDB');
